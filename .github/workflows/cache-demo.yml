@@ -1,0 +1,23 @@
+name: Cache Demo
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Cache dependencies
+        id: cache-step
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm          # what to cache (npm packages folder)
+          key: cache-1db3eec    # the specific key name required by the assignment
+
+      - name: prime-cache-1db3eec
+        run: echo "Cache hit? ${{ steps.cache-step.outputs.cache-hit }}"
